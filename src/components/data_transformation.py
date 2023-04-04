@@ -49,7 +49,6 @@ class DataTransformation:
                                    "EDUCATION",
                                    "MARRIAGE",
                                    "PAY_0",
-                                   "PAY_1",
                                    "PAY_2",
                                    "PAY_3",
                                    "PAY_4",
@@ -106,6 +105,7 @@ class DataTransformation:
             preprocessing_obj=self.get_data_transformer_object()
 
             target_column_name="default.payment.next.month"
+
             numerical_columns = ["ID",
                                  "LIMIT_BAL",
                                  "AGE",
@@ -135,9 +135,7 @@ class DataTransformation:
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr=preprocessing_obj.transform(input_feature_test_df)
 
-            train_arr = np.c_[
-                input_feature_train_arr, np.array(target_feature_train_df)
-            ]
+            train_arr = np.c_[input_feature_train_arr, np.array(target_feature_train_df)]
             test_arr = np.c_[input_feature_test_arr, np.array(target_feature_test_df)]
 
             logging.info(f"Saved preprocessing object.")
