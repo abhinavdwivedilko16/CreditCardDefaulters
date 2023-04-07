@@ -1,10 +1,10 @@
 import os
 import sys
-
+import numpy as np
 from dataclasses import dataclass
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import r2_score
+from sklearn.metrics import accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
@@ -86,9 +86,9 @@ class ModelTrainer:
             )
 
             predicted=best_model.predict(X_test)
-            r2_square=r2_score(y_test,predicted)
+            accuracy=accuracy_score(y_test,predicted)
         
-            return r2_square
+            return accuracy_score
         
 
         except Exception as e:
