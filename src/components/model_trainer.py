@@ -26,11 +26,12 @@ class ModelTrainer:
         try:
             logging.info("splitting training and test input data")
             X_train,y_train,X_test,y_test= (
-                train_array[:,:-1],
-                train_array[:,-1],
-                test_array[:,:-1],
-                test_array[:,-1]
+            train_array[:,:-1],
+            train_array[:,-1],
+            test_array[:,:-1],
+            test_array[:,-1]
             )
+            
             models = {
                 "Logistic Regression": LogisticRegression(),
                 "Decision Tree": DecisionTreeClassifier(),
