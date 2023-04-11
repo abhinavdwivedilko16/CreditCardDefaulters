@@ -43,18 +43,17 @@ class DataTransformation:
                                  "PAY_AMT3",
                                  "PAY_AMT4",
                                  "PAY_AMT5",
-                                 "PAY_AMT6"]
+                                 "PAY_AMT6",
+                                 "SEX",
+                                 "EDUCATION",
+                                 "MARRIAGE",
+                                 "PAY_0",
+                                 "PAY_2",
+                                 "PAY_3",
+                                 "PAY_4",
+                                 "PAY_5",
+                                 "PAY_6"]
             
-            categorical_columns = ["SEX",
-                                   "EDUCATION",
-                                   "MARRIAGE",
-                                   "PAY_0",
-                                   "PAY_2",
-                                   "PAY_3",
-                                   "PAY_4",
-                                   "PAY_5",
-                                   "PAY_6",
-                                   ]
 
             num_pipeline= Pipeline(
                 steps=[
@@ -64,23 +63,14 @@ class DataTransformation:
                 ]
             )
 
-            cat_pipeline=Pipeline(
+        
 
-                steps=[
-                ("imputer",SimpleImputer(strategy="most_frequent")),
-                ("one_hot_encoder",OneHotEncoder()),
-                ("scaler",StandardScaler(with_mean=False))
-                ]
-
-            )
-
-            logging.info(f"Categorical columns: {categorical_columns}")
             logging.info(f"Numerical columns: {numerical_columns}")
 
             preprocessor=ColumnTransformer(
                 [
                 ("num_pipeline",num_pipeline,numerical_columns),
-                ("cat_pipelines",cat_pipeline,categorical_columns)
+
 
                 ]
 
@@ -120,7 +110,16 @@ class DataTransformation:
                                  "PAY_AMT3",
                                  "PAY_AMT4",
                                  "PAY_AMT5",
-                                 "PAY_AMT6"]
+                                 "PAY_AMT6",
+                                 "SEX",
+                                 "EDUCATION",
+                                 "MARRIAGE",
+                                 "PAY_0",
+                                 "PAY_2",
+                                 "PAY_3",
+                                 "PAY_4",
+                                 "PAY_5",
+                                 "PAY_6"]
 
             input_feature_train_df=train_df.drop(columns=[target_column_name],axis=1)
             target_feature_train_df=train_df[target_column_name]
@@ -141,8 +140,8 @@ class DataTransformation:
             logging.info( input_feature_train_arr.shape)
             logging.info( input_feature_test_arr.shape)
 
-            train_arr = np.hstack((input_feature_train_arr, target_feature_train_df))
-            test_arr = np.hstack((input_feature_test_arr, target_feature_test_df))
+            train_arr = np.concatenate((input_feature_train_arr, target_feature_train_df.values.reshape(-1, 1)), axis=1)
+            test_arr = np.concatenate((input_feature_test_arr, target_feature_test_df.values.reshape(-1, 1)), axis=1)
 
 
             logging.info(f"Saved preprocessing object.")

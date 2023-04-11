@@ -4,7 +4,7 @@ import numpy as np
 from dataclasses import dataclass
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
@@ -26,30 +26,31 @@ class ModelTrainer:
         try:
             logging.info("splitting training and test input data")
             X_train,y_train,X_test,y_test= (
-            train_array[:,:-1],
-            train_array[:,-1],
-            test_array[:,:-1],
-            test_array[:,-1]
+            train_array[:, :-1],
+            train_array[:, -1],
+            test_array[:, :-1],
+            test_array[:, -1],
+
             )
             
             models = {
-                "Logistic Regression": LogisticRegression(),
-                "Decision Tree": DecisionTreeClassifier(),
-                "Random Forest Classifier": RandomForestClassifier(),
-                "KNN": KNeighborsClassifier,
-                "SVM": SVC(),
-                "Naive Bayes": GaussianNB()
+            "Logistic Regression": LogisticRegression(),
+            "Decision Tree": DecisionTreeClassifier(),
+            "Random Forest Classifier": RandomForestClassifier(),
+            "KNN": KNeighborsClassifier(),
+            "SVM": SVC(),
+            "Naive Bayes": GaussianNB()
             }
             params={
                 "Decision Tree": {
                     #'criterion':[“gini”]
                     #'splitter' : [“best”, “random”],
-                    #'max_features':['sqrt','log2'],
+                    'max_features':['sqrt','log2'],
                 },
                 "Random Forest Classifier":{
                     #'criterion':[“gini”],
                  
-                    #'max_features':['sqrt','log2'],
+                    'max_features':['sqrt','log2'],
                     'n_estimators': [8,16,32,64,128,256]
                 },
                 "Logistic Regression":{
@@ -58,7 +59,7 @@ class ModelTrainer:
                 },
                 "KNN":{
                     'n_neighbors':[5,10,20,25],
-                    #'algorithm':['auto', 'ball_tree', 'kd_tree', 'brute']
+                    'algorithm':['auto', 'ball_tree', 'kd_tree', 'brute']
                 },
                 "SVM":{
                     'gamma': ['auto'],
@@ -76,9 +77,7 @@ class ModelTrainer:
             best_model_name= list(model_report.keys())[list(model_report.values()).index(best_model_score)]
 
             best_model= models[best_model_name]
-
-            if best_model_score<0.6:
-                raise CustomException("No best model found")
+            print(best_model, best_model_name, best_model_score)
             logging.info(f"Best found model on both training and testing dataset")
 
             save_object(
@@ -86,10 +85,13 @@ class ModelTrainer:
                 obj=best_model
             )
 
-            predicted=best_model.predict(X_test)
-            accuracy=accuracy_score(y_test,predicted)
-        
-            return accuracy_score
+            ## train and evaluate the best model
+            best_model.fit(X_train, y_train)
+            y_pred = best_model.predict(X_test)
+            accuracy = accuracy_score(y_test, y_pred)
+            report = classification_report(y_test, y_pred, output_dict=True)
+
+            return {"accuracy": accuracy, "classification_report": report}
         
 
         except Exception as e:
