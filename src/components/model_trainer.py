@@ -45,13 +45,13 @@ class ModelTrainer:
                 "Decision Tree": {
                     #'criterion':[“gini”]
                     #'splitter' : [“best”, “random”],
-                    'max_features':['sqrt','log2'],
+                    #'max_features':['sqrt','log2'],
                 },
                 "Random Forest Classifier":{
                     #'criterion':[“gini”],
                  
-                    'max_features':['sqrt','log2'],
-                    'n_estimators': [8,16,32,64,128,256]
+                    #'max_features':['sqrt','log2'],
+                    #'n_estimators': [8,16,32,64,128,256]
                 },
                 "Logistic Regression":{
                     #'penalty': ['l2',]
@@ -59,7 +59,7 @@ class ModelTrainer:
                 },
                 "KNN":{
                     'n_neighbors':[5,10,20,25],
-                    'algorithm':['auto', 'ball_tree', 'kd_tree', 'brute']
+                    #'algorithm':['auto', 'ball_tree', 'kd_tree', 'brute']
                 },
                 "SVM":{
                     'gamma': ['auto'],

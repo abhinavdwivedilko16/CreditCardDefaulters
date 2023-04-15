@@ -9,3 +9,7 @@ Random Forest Classification
 Logistic Regression
 K-Nearest Neighbours
 Support Vector Machines
+
+
+client = pymongo.MongoClient("mongodb+srv://abhinav:<password>@cluster0.pveuiqo.mongodb.net/?retryWrites=true&w=majority")
+db = client.test
