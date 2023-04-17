@@ -77,7 +77,7 @@ class ModelTrainer:
             best_model_name= list(model_report.keys())[list(model_report.values()).index(best_model_score)]
 
             best_model= models[best_model_name]
-            print(best_model, best_model_name, best_model_score)
+            #print(best_model, best_model_name, best_model_score)
             logging.info(f"Best found model on both training and testing dataset")
 
             save_object(
@@ -91,7 +91,7 @@ class ModelTrainer:
             accuracy = accuracy_score(y_test, y_pred)
             report = classification_report(y_test, y_pred, output_dict=True)
 
-            return {"accuracy": accuracy, "classification_report": report}
+            return {"accuracy": accuracy} #{"classification_report": report}
         
 
         except Exception as e:

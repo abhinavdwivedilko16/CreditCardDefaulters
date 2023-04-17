@@ -20,30 +20,30 @@ def predict_defaulter():
         return render_template('home.html')
     else:
         data=CustomData(
-            ID = int(request.form.get('ID')),
-            LIMIT_BAL = float(request.form.get('LIMIT_BAL')),
-            AGE = int(request.form.get('AGE')),
-            BILL_AMT1 = float(request.form.get('BILL_AMT1')),
-            BILL_AMT2 = float(request.form.get('BILL_AMT2')),
-            BILL_AMT3 = float(request.form.get('BILL_AMT3')),
-            BILL_AMT4 = float(request.form.get('BILL_AMT4')),
-            BILL_AMT5 = float(request.form.get('BILL_AMT5')),
-            BILL_AMT6 = float(request.form.get('BILL_AMT6')),
-            PAY_AMT1 = float(request.form.get('PAY_AMT1')),
-            PAY_AMT2 = float(request.form.get('PAY_AMT2')),
-            PAY_AMT3 = float(request.form.get('PAY_AMT3')),
-            PAY_AMT4 = float(request.form.get('PAY_AMT4')),
-            PAY_AMT5 = float(request.form.get('PAY_AMT5')),
-            PAY_AMT6 = float(request.form.get('PAY_AMT6')),
-            SEX = int(request.form.get('SEX')),
-            EDUCATION = int(request.form.get('EDUCATION')),
-            MARRIAGE = int(request.form.get('MARRIAGE')),
-            PAY_0 = int(request.form.get('PAY_0')),
-            PAY_2 = int(request.form.get('PAY_2')),
-            PAY_3 = int(request.form.get('PAY_3')),
-            PAY_4 = int(request.form.get('PAY_4')),
-            PAY_5 = int(request.form.get('PAY_5')),
-            PAY_6 = int(request.form.get('PAY_6'))
+            ID = (request.form.get('ID')),
+            LIMIT_BAL = (request.form.get('LIMIT_BAL')),
+            AGE = (request.form.get('AGE')),
+            BILL_AMT1 = (request.form.get('BILL_AMT1')),
+            BILL_AMT2 = (request.form.get('BILL_AMT2')),
+            BILL_AMT3 = (request.form.get('BILL_AMT3')),
+            BILL_AMT4 = (request.form.get('BILL_AMT4')),
+            BILL_AMT5 = (request.form.get('BILL_AMT5')),
+            BILL_AMT6 = (request.form.get('BILL_AMT6')),
+            PAY_AMT1 = (request.form.get('PAY_AMT1')),
+            PAY_AMT2 = (request.form.get('PAY_AMT2')),
+            PAY_AMT3 = (request.form.get('PAY_AMT3')),
+            PAY_AMT4 = (request.form.get('PAY_AMT4')),
+            PAY_AMT5 = (request.form.get('PAY_AMT5')),
+            PAY_AMT6 = (request.form.get('PAY_AMT6')),
+            SEX = (request.form.get('SEX')),
+            EDUCATION = (request.form.get('EDUCATION')),
+            MARRIAGE = (request.form.get('MARRIAGE')),
+            PAY_0 = (request.form.get('PAY_0')),
+            PAY_2 = (request.form.get('PAY_2')),
+            PAY_3 = (request.form.get('PAY_3')),
+            PAY_4 = (request.form.get('PAY_4')),
+            PAY_5 = (request.form.get('PAY_5')),
+            PAY_6 = (request.form.get('PAY_6'))
         )
 
 
@@ -52,7 +52,12 @@ def predict_defaulter():
 
         predict_pipeline=PredictPipeline()
         result=predict_pipeline.predict(pred_df)
-        return render_template('home.html',result=result[0])
+        if result!=0.:
+            result="The person is Defaulter"
+        else:
+            result="The person is Not Defaulter"
+
+        return render_template('home.html',result=result)
     
 
 if __name__=="__main__":
