@@ -1,9 +1,10 @@
 pandas
-numpy
 seaborn
+numpy
 matplotlib
 scikit-learn
 dill
 Flask
 dataclasses
-#-e .
+flask_pymongo
+-e .

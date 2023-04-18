@@ -1,132 +1,157 @@
- <html>
+<!DOCTYPE html>
+<html>
+<head>
+		<title>Credit Card Defaulter Prediction</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			background-color: #f5f5f5;
+		}
+
+		form {
+			max-width: 600px;
+			margin: 0 auto;
+			background-color: #fff;
+			padding: 20px;
+			border-radius: 5px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+
+		h1, h2 {
+			text-align: center;
+			margin-top: 0;
+		}
+
+		label, select {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		input[type="number"], select {
+			width: 100%;
+			padding: 10px;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			font-size: 16px;
+			margin-bottom: 20px;
+		}
+
+		input[type="number"]:focus, select:focus {
+			outline: none;
+			border-color: #666;
+		}
+
+		input[type="submit"] {
+			background-color: #4CAF50;
+			color: white;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #45a049;
+		}
+	</style>
+</head>
 <body>
-    <div class="login">
-       <h1>Credit Card Defaulter Prediction</h1>
-   
-       <form action="{{ url_for('predict_defaulter')}}" method="post">
+	<h1>Credit Card Defaulter Prediction</h1>
+	<form action="{{ url_for('predict_defaulter')}}" method="post">
+		<h2>Personal Information</h2>
+		<label for="AGE">Age:</label>
+	<input type="number" id="AGE" name="AGE" placeholder="Enter your age" min="0" max="100" required>
 
-        <div class="mb-3">
-            <label class="form-label">ID</label>
-            <input class="form-control" type="number" name="ID"
-                placeholder="Enter your ID" />
-            </div>
+	<label for="SEX">Gender:</label>
+	<select id="SEX" name="SEX" required>
+		<option value="">Select your gender</option>
+		<option value="1">Male</option>
+		<option value="2">Female</option>
+	</select>
 
-            <div class="mb-3">
-                <label class="form-label">limit_bal</label>
-                <input class="form-control" type="number" name="LIMIT_BAL"
-                    placeholder="Enter limit_bal" />
-            </div>
-    
-            <div class="mb-3">
-                <label class="form-label">AGE</label>
-                <input class="form-control" type="number" name="AGE"
-                    placeholder="Enter your Age" min='0' max='100' />
-            </div>
+	<label for="EDUCATION">Education:</label>
+	<select id="EDUCATION" name="EDUCATION" required>
+		<option value="">Select your education</option>
+		<option value="1">Graduate school</option>
+		<option value="2">University</option>
+<option value="3">High school</option>
+<option value="4">Others</option>
+</select><label for="MARRIAGE">Marital Status:</label>
+<select id="MARRIAGE" name="MARRIAGE" required>
+	<option value="">Select your marital status</option>
+	<option value="1">Married</option>
+	<option value="2">Single</option>
+	<option value="3">Others</option>
+</select>
 
-            <label for="BILL_AMT">Bill Amount:</label>
-            <p>(amount of bill statement)</p>
-            <label for="BILL_AMT6">April:</label>
-            <input type="number" id="BILL_AMT6" name="BILL_AMT6" required>
-            <label for="BILL_AMT5">May:</label>
-            <input type="number" id="BILL_AMT5" name="BILL_AMT5" required>
-            <label for="BILL_AMT4">June:</label>
-            <input type="number" id="BILL_AMT4" name="BILL_AMT4" required>
-            <label for="BILL_AMT3">July:</label>
-            <input type="number" id="BILL_AMT3" name="BILL_AMT3" required>
-            <label for="BILL_AMT2">August:</label>
-            <input type="number" id="BILL_AMT2" name="BILL_AMT2" required>
-            <label for="BILL_AMT1">September:</label>
-            <input type="number" id="BILL_AMT1" name="BILL_AMT1" required><br>
+<h2>Financial Information</h2>
+<h3><label for="LIMIT_BAL">Credit Limit:</label></h3>
+<input type="number" id="LIMIT_BAL" name="LIMIT_BAL" placeholder="Enter your credit limit" min="0" required>
 
-            <label for="PAY_AMT">Pay Amount:</label>
-            <p>(amount paid in previous statement)</p>
-            <label for="PAY_AMT6">April:</label>
-            <input type="number" id="PAY_AMT6" name="PAY_AMT6" required>
-            <label for="PAY_AMT5">May:</label>
-            <input type="number" id="PAY_AMT5" name="PAY_AMT5" required>
-            <label for="PAY_AMT4">June:</label>
-            <input type="number" id="PAY_AMT4" name="PAY_AMT4" required>
-            <label for="PAY_AMT3">July:</label>
-            <input type="number" id="PAY_AMT3" name="PAY_AMT3" required>
-            <label for="PAY_AMT2">August:</label>
-            <input type="number" id="PAY_AMT2" name="PAY_AMT2" required>
-            <label for="PAY_AMT1">September:</label>
-            <input type="number" id="PAY_AMT1" name="PAY_AMT1" required><br>
+<h3><label for="BILL_AMT">Bill Amount:</label></h3>
+<label for="BILL_AMT6">April:</label>
+<input type="number" id="BILL_AMT6" name="BILL_AMT6" required>
+<label for="BILL_AMT5">May:</label>
+<input type="number" id="BILL_AMT5" name="BILL_AMT5" required>
+<label for="BILL_AMT4">June:</label>
+<input type="number" id="BILL_AMT4" name="BILL_AMT4" required>
+<label for="BILL_AMT3">July:</label>
+<input type="number" id="BILL_AMT3" name="BILL_AMT3" required>
+<label for="BILL_AMT2">August:</label>
+<input type="number" id="BILL_AMT2" name="BILL_AMT2" required>
+<label for="BILL_AMT1">September:</label>
+<input type="number" id="BILL_AMT1" name="BILL_AMT1" required>
 
-        <div class="mb-3">
-            <label class="form-label">SEX</label>
-            <select class="form-control" name="SEX" placeholder="Enter you Gender" required>
-                <option class="placeholder" selected disabled value="">Select your Gender</option>
-                <option value="1">
-                    Male
-                </option>
-                <option value="2">
-                    Female
-                </option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">EDUCATION</label>
-            <select class="form-control" name="EDUCATION" placeholder="Enter you education" required>
-                <option class="placeholder" selected disabled value="">Select Education</option>
-                <option value="1">
-                  graduate_school
-                </option>
-                <option value="2">
-                  university
-                </option>
-                <option value="3">
-                  high_school
-                </option>
-                <option value="4">
-                  others
-                </option>
-                <option value="5">
-                  unknown
-                </option>
-            </select>
-        </div>
-        <div class="mb-3">
-          <label class="form-label">MARRIAGE</label>
-          <select class="form-control" name="MARRIAGE"
-              placeholder="Enter your marital status" required>
-              <option class="placeholder" selected disabled value="">Select Marital status</option>
-              <option value="1">
-                  married
-              </option>
-              <option value="2">
-                  single
-              </option>
-              <option value="3">
-                  other_marriage
-              </option>
-          </select>
-      </div>
+<h3><label for="PAY_AMT">Payment Amount:</label></h3>
+<p>(Amount paid for previous statement)</p>
+<label for="PAY_AMT6">April:</label>
+<input type="number" id="PAY_AMT6" name="PAY_AMT6" required>
+<label for="PAY_AMT5">May:</label>
+<input type="number" id="PAY_AMT5" name="PAY_AMT5" required>
+<label for="PAY_AMT4">June:</label>
+<input type="number" id="PAY_AMT4" name="PAY_AMT4" required>
+<label for="PAY_AMT3">July:</label>
+<input type="number" id="PAY_AMT3" name="PAY_AMT3" required>
+<label for="PAY_AMT2">August:</label>
+<input type="number" id="PAY_AMT2" name="PAY_AMT2" required>
+<label for="PAY_AMT1">September:</label>
+<input type="number" id="PAY_AMT1" name="PAY_AMT1" required>
 
-  
-          <label for="REPAY_STATUS">REPAYMENT STATUS:</label>
-          <p>(-1=pay duly, 1=one month delay, 2=two months delay, … 9=delay for nine months and above)</p>
-          <label for="PAY_6">April:</label>
-          <input type="number" id="PAY_6" name="PAY_6" min="-2" max="9" value="0" required>
-          <label for="PAY_5">May:</label>
-          <input type="number" id="PAY_5" name="PAY_5" min="-2" max="9" value="0" required>
-          <label for="PAY_4">June:</label>
-          <input type="number" id="PAY_4" name="PAY_4" min="-2" max="9" value="0" required>
-          <label for="PAY_3">July:</label>
-          <input type="number" id="PAY_3" name="PAY_3" min="-2" max="9" value="0" required>
-          <label for="PAY_2">August:</label>
-          <input type="number" id="PAY_2" name="PAY_2" min="-2" max="9" value="0" required>
-          <label for="PAY_0">September:</label>
-          <input type="number" id="PAY_0" name="PAY_0" min="-2" max="9" value="0" required><br>
-  
+<h3><label for="REPAY_STATUS">REPAYMENT STATUS:</label></h3>
+<h2><p>(-1=pay duly, 1=one month delay, 2=two months delay, … 9=delay for nine months and above)</p></h2>
+<label for="PAY_6">April:</label>
+<input type="number" id="PAY_6" name="PAY_6" min="-2" max="9" value="0" required>
+<label for="PAY_5">May:</label>
+<input type="number" id="PAY_5" name="PAY_5" min="-2" max="9" value="0" required>
+<label for="PAY_4">June:</label>
+<input type="number" id="PAY_4" name="PAY_4" min="-2" max="9" value="0" required>
+<label for="PAY_3">July:</label>
+<input type="number" id="PAY_3" name="PAY_3" min="-2" max="9" value="0" required>
+<label for="PAY_2">August:</label>
+<input type="number" id="PAY_2" name="PAY_2" min="-2" max="9" value="0" required>
+<label for="PAY_0">September:</label>
+<input type="number" id="PAY_0" name="PAY_0" min="-2" max="9" value="0" required><br>
 
-    
-        <div class="mb-3">
-            <input class="btn btn-primary" type="submit" value="Predict the defaulter" required />
-        </div>
-    </form>
-    <h2>
-       THE  prediction is {{result}}
-    </h2>
-   <body>
+
+<div class="mb-3">
+    <input class="btn btn-primary" type="submit" value="Predict the defaulter" required />
+</div>
+</form>
+<h2>
+THE  prediction is:  {{result}}
+</h2>
+<body>
 </html>
+
